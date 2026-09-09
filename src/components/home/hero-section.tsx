@@ -57,18 +57,18 @@ export function HeroSection() {
             </div>
           </div>
           <div
-            className="hero-portrait relative mx-auto h-[430px] w-full max-w-xl sm:h-[540px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:h-full lg:w-[50%] lg:max-w-none"
+            className="hero-portrait relative mx-auto h-[430px] w-full max-w-xl sm:h-[540px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:h-full lg:w-[100%] lg:max-w-none"
             data-testid="hero-portrait"
           >
             <span aria-hidden="true" className="hero-portrait-orbit" />
             <span aria-hidden="true" className="hero-portrait-glow" />
             <Image
               alt="Illustrated portrait of Ian Ale Hansyah"
-              className="hero-portrait-image object-contain object-bottom lg:translate-x-[11%]"
+              className="hero-portrait-image object-contain object-bottom lg:translate-x-[30%]"
               fill
               priority
               sizes="(max-width: 1023px) min(100vw - 32px, 576px), 48vw"
-              src="/ian.png"
+              src="/ianbom.png"
             />
             <div className="absolute right-0 top-[36%] hidden flex-col items-start text-[10px] font-medium tracking-[.28em] text-[#7794ad] lg:flex"></div>
           </div>
