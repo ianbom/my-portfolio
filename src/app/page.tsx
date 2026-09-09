@@ -11,5 +11,5 @@ import { MetricsSection } from "@/components/home/metrics-section";
 import { TechStackSection } from "@/components/home/tech-stack-section";
 
 export default function HomePage() {
-  return <main><HeroSection /><ExpertiseStrip /><MetricsSection /><EducationSection /><FeaturedProjects /><ExpertiseSection /><ExperienceSection /><AchievementsSection /><CertificationsSection /><TechStackSection /><ContactCta /></main>;
+  return <main><HeroSection /><ExpertiseStrip /><MetricsSection /><EducationSection /><AchievementsSection /><ExperienceSection /><ExpertiseSection /><CertificationsSection /><FeaturedProjects /><TechStackSection /><ContactCta /></main>;
 }

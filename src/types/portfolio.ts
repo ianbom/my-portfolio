@@ -43,6 +43,7 @@ export type Achievement = {
   competition: string;
   organizer: string;
   year: number;
+  certificateFile: string;
 };
 
 export type Certification = {

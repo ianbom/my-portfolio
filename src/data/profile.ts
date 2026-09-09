@@ -26,7 +26,7 @@ export const metrics = [
   { value: "2+", label: "Years Experience" },
   { value: "15", label: "Projects" },
   { value: "4", label: "National Placements" },
-  { value: "50%+", label: "Manual Processing Reduction" },
+  { value: "D4", label: "Informatics Engineering" },
 ] as const;
 
 export const expertise = [
@@ -67,10 +67,10 @@ export const experiences: Experience[] = [
 ];
 
 export const achievements: Achievement[] = [
-  { placement: "1st Place", competition: "Olimpiade Vokasi Nasional — Web Technology", organizer: "FPTVI", year: 2026 },
-  { placement: "1st Place", competition: "Web Development Technology Innovative Challenge 8.0", organizer: "UNEJ", year: 2025 },
-  { placement: "3rd Place", competition: "Kompetisi Mahasiswa Informatika Politeknik Nasional — E-Government", organizer: "BAKORMA", year: 2025 },
-  { placement: "1st Place", competition: "Web Development National Competition Silogy Expo", organizer: "UNSIKA", year: 2025 },
+  { placement: "1st Place", competition: "Olimpiade Vokasi Nasional — Web Technology", organizer: "FPTVI", year: 2026, certificateFile: "/competition/JUARA 1 - Web Technology Competition.pdf" },
+  { placement: "1st Place", competition: "Web Development Technology Innovative Challenge 8.0", organizer: "UNEJ", year: 2025, certificateFile: "/competition/Juara 1 TIC.pdf" },
+  { placement: "3rd Place", competition: "Kompetisi Mahasiswa Informatika Politeknik Nasional — E-Government", organizer: "BAKORMA", year: 2025, certificateFile: "/competition/KMIPN .pdf" },
+  { placement: "1st Place", competition: "Web Development National Competition Silogy Expo", organizer: "UNSIKA", year: 2025, certificateFile: "/competition/Silogy Expo - Ian Ale Hansyah - Web Dev Juara 1_page-0001.pdf" },
 ];
 
 export const skillGroups = [

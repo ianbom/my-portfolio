@@ -12,6 +12,13 @@ test("portfolio landing page renders professional sections", async ({ page }) =>
   await expect(page.getByAltText("Politeknik Elektronika Negeri Surabaya logo")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Featured Projects" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Professional Experience" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "National Competition Achievements" })).toBeVisible();
+  const achievementsSection = page.getByRole("heading", { name: "National Competition Achievements" }).locator("xpath=ancestor::section");
+  const competitionCertificates = achievementsSection.getByRole("link", { name: /Open .* certificate PDF/ });
+  await expect(competitionCertificates).toHaveCount(4);
+  await expect(competitionCertificates.nth(0)).toHaveAttribute("href", "/competition/JUARA 1 - Web Technology Competition.pdf");
+  await expect(competitionCertificates.nth(0)).toHaveAttribute("target", "_blank");
+  await expect(competitionCertificates.nth(0)).toHaveAttribute("rel", "noreferrer");
   await expect(page.getByRole("heading", { name: "Certifications" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "PENS English Proficiency Test" })).toBeVisible();
   await expect(page.getByText("Score 480")).toBeVisible();

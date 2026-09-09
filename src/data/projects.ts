@@ -1,4 +1,4 @@
-import { projects as sourceProjects, type ProjectAdditionalSections } from "../../portfolio-website/lib/projects";
+import { projects as sourceProjects, type ProjectAdditionalSections } from "../lib/projects";
 import type { PortfolioProject, ProjectCategory, ProjectSection } from "@/types/portfolio";
 
 const categories: Record<string, ProjectCategory[]> = {
