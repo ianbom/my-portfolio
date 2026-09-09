@@ -31,6 +31,8 @@ test("portfolio landing page renders professional sections", async ({ page }) =>
   const embeddings = page.getByTestId("technology-logo-embeddings");
   await expect(embeddings).toHaveText("Embeddings");
   await expect(embeddings.locator("svg")).toHaveCount(0);
+  for (const technology of ["next-js", "express-js", "ollama"]) await expect(page.getByTestId(`technology-logo-${technology}`).locator("svg")).toHaveAttribute("fill", "#f5f5f5");
+  await expect(page.getByLabel("LinkedIn profile")).toHaveText("LinkedIn");
 });
 
 test("hero fills viewport and navbar changes after hero", async ({ page }) => {
@@ -110,8 +112,22 @@ test("mobile menu toggles", async ({ page }) => {
   await page.goto("/");
   const menu = page.getByRole("button", { name: "Open menu" });
   await expect(menu).toBeVisible();
-  await page.waitForTimeout(500);
+  await expect(menu).toHaveCSS("width", "48px");
+  await expect(menu).toHaveCSS("height", "48px");
+  await expect(page.getByRole("link", { name: "Let's Talk" })).toBeHidden();
+  const brandBox = await page.getByTestId("site-header").getByRole("link", { name: "Ian Ale" }).boundingBox();
+  const menuBox = await menu.boundingBox();
+  expect(brandBox?.x).toBeLessThan(menuBox?.x ?? 0);
   await menu.click();
-  await expect(page.getByRole("button", { name: "Close menu" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Projects" }).first()).toBeVisible();
+  const drawer = page.getByRole("dialog", { name: "Mobile navigation" });
+  await expect(drawer).toBeVisible();
+  await expect(page.getByTestId("mobile-navigation-overlay")).toBeVisible();
+  await expect(drawer.getByRole("link", { name: "Projects" })).toHaveCSS("font-size", "36px");
+  await expect(drawer.getByRole("button", { name: "Close menu" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(drawer).not.toBeVisible();
+  await menu.click();
+  await expect(drawer).toBeVisible();
+  await page.getByRole("button", { name: "Close navigation backdrop" }).click({ position: { x: 12, y: 120 } });
+  await expect(drawer).not.toBeVisible();
 });

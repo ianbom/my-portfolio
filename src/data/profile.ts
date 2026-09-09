@@ -12,7 +12,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/ian-ale-hansyah-204ab9286/",
   instagram: "https://www.instagram.com/ianale._/",
   summary: "Full Stack Developer and D4 Teknik Informatika graduate with more than two years of experience delivering web applications from requirements and database design through APIs, frontend implementation, deployment, and maintenance.",
-  heroDescription: "D4 Teknik Informatika graduate with 2+ years building end-to-end applications using Laravel, React, Next.js, Python, FastAPI, and retrieval-augmented AI systems.",
+  heroDescription: "Software Engineer focused on building reliable, scalable digital products from idea to deployment.",
   education: {
     institution: "Politeknik Elektronika Negeri Surabaya",
     degree: "D4 Teknik Informatika",
