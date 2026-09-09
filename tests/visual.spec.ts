@@ -3,8 +3,9 @@ import { expect, test } from "@playwright/test";
 test("portfolio landing page renders professional sections", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("Ian Ale Hansyah");
-  await expect(page.getByTestId("hero-aurora")).toBeAttached();
-  await expect(page.getByTestId("hero-aurora-layer")).toHaveCount(3);
+  await expect(page.getByTestId("hero-stage-background")).toBeAttached();
+  await expect(page.getByTestId("hero-portrait")).toBeVisible();
+  await expect(page.getByAltText("Illustrated portrait of Ian Ale Hansyah")).toHaveAttribute("src", /ian\.png/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await expect(page.getByRole("heading", { name: "Academic Background" })).toBeVisible();
   await expect(page.getByText("Applied Bachelor's Degree in Informatics Engineering")).toBeVisible();
@@ -47,6 +48,18 @@ test("hero fills viewport and navbar changes after hero", async ({ page }) => {
   await expect(header).toHaveClass(/bg-transparent/);
   await page.evaluate(() => window.scrollTo(0, document.querySelector<HTMLElement>("[data-hero-section]")?.offsetHeight ?? window.innerHeight));
   await expect(header).toHaveClass(/backdrop-blur-md/);
+});
+
+test("desktop hero portrait meets the hero baseline", async ({ page }) => {
+  test.skip(test.info().project.name !== "desktop", "Desktop-only layout");
+  await page.goto("/");
+  const heroBox = await page.locator("[data-hero-section]").boundingBox();
+  const portraitBox = await page.getByTestId("hero-portrait").boundingBox();
+  expect(heroBox).not.toBeNull();
+  expect(portraitBox).not.toBeNull();
+  const heroBottom = (heroBox?.y ?? 0) + (heroBox?.height ?? 0);
+  const portraitBottom = (portraitBox?.y ?? 0) + (portraitBox?.height ?? 0);
+  expect(Math.abs(heroBottom - portraitBottom)).toBeLessThanOrEqual(1);
 });
 
 test("project search filters and resets", async ({ page }) => {
