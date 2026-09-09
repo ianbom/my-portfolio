@@ -64,7 +64,7 @@ export function HeroSection() {
             <span aria-hidden="true" className="hero-portrait-glow" />
             <Image
               alt="Illustrated portrait of Ian Ale Hansyah"
-              className="hero-portrait-image object-contain object-bottom"
+              className="hero-portrait-image object-contain object-bottom lg:translate-x-[11%]"
               fill
               priority
               sizes="(max-width: 1023px) min(100vw - 32px, 576px), 48vw"
