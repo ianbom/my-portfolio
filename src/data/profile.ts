@@ -1,4 +1,5 @@
 import type { Achievement, Experience } from "@/types/portfolio";
+import type { Locale } from "@/lib/i18n";
 
 export const profile = {
   name: "Ian Ale Hansyah",
@@ -80,3 +81,34 @@ export const skillGroups = [
   { name: "AI", skills: ["RAG", "LangChain", "Ollama", "RAGAS", "Embeddings", "Retrieval", "Reranking"] },
   { name: "Infrastructure", skills: ["Docker", "VPS", "MinIO", "cPanel", "Celery", "Alembic"] },
 ] as const;
+
+export function getProfileContent(locale: Locale) {
+  if (locale === "en") return { profile, metrics, expertise, experiences, achievements };
+
+  return {
+    profile: {
+      ...profile,
+      summary: "Full Stack Developer dan lulusan D4 Teknik Informatika dengan pengalaman lebih dari dua tahun membangun aplikasi web, mulai dari penggalian kebutuhan dan perancangan basis data hingga API, frontend, deployment, dan pemeliharaan.",
+      heroDescription: "Software Engineer yang berfokus membangun produk digital yang andal dan mudah dikembangkan, dari ide hingga siap digunakan.",
+      education: { ...profile.education, degreeEnglish: "Sarjana Terapan Teknik Informatika", period: "Juli 2022 – Juli 2026" },
+    },
+    metrics: [
+      { value: "2+", label: "Tahun Pengalaman" },
+      { value: "15", label: "Proyek" },
+      { value: "4", label: "Prestasi Nasional" },
+      { value: "D4", label: "Teknik Informatika" },
+    ],
+    expertise: [
+      { ...expertise[0], title: "Pengembangan Full Stack", description: "Pengembangan aplikasi dari awal hingga siap digunakan, mencakup kebutuhan, alur sistem, struktur basis data, API, frontend, pengujian, deployment, dan pemeliharaan." },
+      { ...expertise[1], title: "Rekayasa Backend", description: "API REST, autentikasi, validasi, pemodelan data relasional, integrasi, background job, pengujian, dan logika aplikasi yang mudah dipelihara." },
+      { ...expertise[2], title: "Rekayasa AI", description: "Ingesti dokumen, chunking, embedding, pencarian vektor, retrieval, reranking, integrasi LLM, serta evaluasi alur kerja RAG." },
+      { ...expertise[3], title: "Infrastruktur dan Delivery", description: "Deployment aplikasi, konfigurasi server, layanan terkontainerisasi, object storage, pemeliharaan, dan penanganan masalah produksi." },
+    ],
+    experiences: [
+      { ...experiences[0], role: "Freelance Full Stack Web Developer", period: "Desember 2024 – Sekarang", summary: "Mengembangkan dan memelihara aplikasi bisnis kustom, dari perumusan kebutuhan dan rancangan proses hingga deployment dan dukungan pascaimplementasi.", highlights: ["Membangun atau memelihara lebih dari lima website kustom.", "Mengembangkan sistem e-commerce, booking, dan manajemen internal.", "Menangani pengujian, debugging, deployment, konfigurasi server, dan pemeliharaan."] },
+      { ...experiences[1], period: "September 2024 – Desember 2024", summary: "Membangun alur verifikasi dana sertifikasi dosen serta API REST yang aman dan terintegrasi dengan aplikasi mobile.", highlights: ["Memangkas waktu proses verifikasi manual lebih dari 50%.", "Melakukan pengujian integrasi API, validasi, debugging, dan analisis akar masalah.", "Men-deploy server pengembangan serta menyiapkan dokumentasi API."] },
+      { ...experiences[2], period: "Juli 2024 – Desember 2024", summary: "Mengembangkan aplikasi web dan sistem manajemen klien dengan menerjemahkan kebutuhan bisnis menjadi modul, struktur data, dan integrasi.", highlights: ["Mendukung aplikasi operasional bisnis dan sistem manajemen klien.", "Berkolaborasi melalui Git dan GitHub untuk integrasi serta penyelesaian isu.", "Melakukan pengujian, deployment, pemeliharaan, dan perbaikan bertahap."] },
+    ] satisfies Experience[],
+    achievements: achievements.map((achievement) => ({ ...achievement, placement: achievement.placement === "3rd Place" ? "Juara III" : "Juara I" })) satisfies Achievement[],
+  };
+}

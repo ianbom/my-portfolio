@@ -6,7 +6,7 @@ test("portfolio landing page renders professional sections", async ({ page }) =>
   await expect(page.getByTestId("hero-stage-background")).toBeAttached();
   await expect(page.getByTestId("hero-portrait")).toBeVisible();
   const portraitImage = page.getByAltText("Illustrated portrait of Ian Ale Hansyah");
-  await expect(portraitImage).toHaveAttribute("src", /ian\.png/);
+  await expect(portraitImage).toHaveAttribute("src", /ianbom\.png/);
   await expect(portraitImage).toHaveClass(/hero-portrait-image/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await expect(page.getByRole("heading", { name: "Academic Background" })).toBeVisible();
@@ -78,6 +78,7 @@ test("mobile hero portrait meets the section baseline", async ({ page }) => {
 
 test("project search filters and resets", async ({ page }) => {
   await page.goto("/projects");
+  await page.waitForTimeout(300);
   await expect(page.getByText("15 projects")).toBeVisible();
   const projectThumbnails = page.locator("img[alt$=' interface']");
   await expect(projectThumbnails).toHaveCount(15);
@@ -99,6 +100,7 @@ test("featured project thumbnails preserve full screenshots", async ({ page }) =
 
 test("project detail renders case study content", async ({ page }) => {
   await page.goto("/projects/sobat-bumi");
+  await page.waitForTimeout(300);
   await expect(page.locator("h1")).toContainText("Sobat Bumi");
   await expect(page.getByTestId("project-carousel")).toBeVisible();
   await expect(page.getByTestId("carousel-slide-count")).toHaveText("1 / 8");
@@ -123,6 +125,7 @@ test("contact page exposes verified methods", async ({ page }) => {
 
 test("gallery renders local photos and opens detail dialog", async ({ page }) => {
   await page.goto("/gallery");
+  await page.waitForTimeout(300);
   await expect(page.getByRole("heading", { name: "Moments behind the work" })).toBeVisible();
   await expect(page.getByTestId("gallery-grid").getByRole("button")).toHaveCount(5);
   await expect(page.getByAltText("Ian Ale Hansyah with fellow MSIB Batch 7 participants")).toBeVisible();
@@ -137,6 +140,7 @@ test("gallery renders local photos and opens detail dialog", async ({ page }) =>
 test("mobile menu toggles", async ({ page }) => {
   test.skip(test.info().project.name !== "mobile", "Mobile-only interaction");
   await page.goto("/");
+  await page.waitForTimeout(300);
   const menu = page.getByRole("button", { name: "Open menu" });
   await expect(menu).toBeVisible();
   await expect(menu).toHaveCSS("width", "48px");

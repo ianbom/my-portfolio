@@ -5,18 +5,25 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button, buttonStyles } from "@/components/ui/button";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
+import { getCopy, localePath, type Locale } from "@/lib/i18n";
 
-const navigation = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
-];
-
-export function Header() {
+export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
+  const text = getCopy(locale);
+  const alternateLocale: Locale = locale === "en" ? "id" : "en";
+  const alternatePath = pathname.replace(/^\/(?:en|id)(?=\/|$)/, `/${alternateLocale}`) || `/${alternateLocale}`;
+  const navigation = [
+    { href: localePath(locale), label: text.nav.home },
+    { href: localePath(locale, "/projects"), label: text.nav.projects },
+    { href: localePath(locale, "/gallery"), label: text.nav.gallery },
+    { href: localePath(locale, "/contact"), label: text.nav.contact },
+  ];
   const [menuOpen, setMenuOpen] = useState(false);
-  const [heroActive, setHeroActive] = useState(pathname === "/");
+  const [heroActive, setHeroActive] = useState(pathname === localePath(locale));
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   useEffect(() => {
     const update = () => {
@@ -49,13 +56,13 @@ export function Header() {
   return (
     <>
       <header
-        className={`${pathname === "/" ? "fixed" : "sticky"} top-0 z-50 w-full transition-all duration-300 ${menuOpen || !heroActive ? "bg-[#141414]/70 backdrop-blur-md" : "bg-transparent"}`}
+        className={`${pathname === localePath(locale) ? "fixed" : "sticky"} top-0 z-50 w-full transition-all duration-300 ${menuOpen || !heroActive ? "bg-[#141414]/70 backdrop-blur-md" : "bg-transparent"}`}
         data-testid="site-header"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link
-              href="/"
+                href={localePath(locale)}
               className="text-lg font-light tracking-[-.05em] sm:text-2xl"
             >
               Ian Ale Hansyah
@@ -78,17 +85,25 @@ export function Header() {
               <div className="hidden sm:flex">
                 <Link
                   className={buttonStyles("primary", "h-8")}
-                  href="/contact"
+                  href={localePath(locale, "/contact")}
                 >
-                  Let&apos;s Talk
+                  {text.nav.talk}
                 </Link>
               </div>
+              <Link
+                aria-label={alternateLocale === "id" ? text.language.switchToId : text.language.switchToEn}
+                className="ml-2 hidden rounded-md border border-white/20 px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-white/10 sm:inline-flex"
+                href={alternatePath}
+                role="button"
+              >
+                {alternateLocale.toUpperCase()}
+              </Link>
               <Button
                 variant="ghost"
                 className="!size-12 border border-white/25 bg-black/25 p-0 text-white shadow-lg shadow-black/25 backdrop-blur-sm sm:hidden"
                 aria-controls="mobile-navigation-drawer"
                 aria-expanded={menuOpen}
-                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-label={menuOpen ? text.nav.close : text.nav.open}
                 onClick={() => setMenuOpen((value) => !value)}
               >
                 {menuOpen ? (
@@ -106,7 +121,7 @@ export function Header() {
         data-testid="mobile-navigation-overlay"
       >
         <button
-          aria-label="Close navigation backdrop"
+          aria-label={text.nav.closeBackdrop}
           className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
           onClick={() => setMenuOpen(false)}
           tabIndex={menuOpen ? 0 : -1}
@@ -122,12 +137,12 @@ export function Header() {
         >
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium tracking-[.24em] text-[#f1e7d8]">
-              EXPLORE MY WORK
+              {text.nav.explore}
             </p>
             <Button
               variant="ghost"
               className="!size-14 rounded-full border border-white/70 p-0 text-[#f5f3ed] hover:bg-white/10"
-              aria-label="Close menu"
+              aria-label={text.nav.close}
               onClick={() => setMenuOpen(false)}
               tabIndex={menuOpen ? 0 : -1}
             >
@@ -150,6 +165,15 @@ export function Header() {
               </Link>
             ))}
           </nav>
+          <Link
+            aria-label={alternateLocale === "id" ? text.language.switchToId : text.language.switchToEn}
+            className="mt-12 w-fit rounded-md border border-white/30 px-4 py-2 text-sm font-semibold text-[#f5f3ed] transition-colors hover:bg-white/10"
+            href={alternatePath}
+            tabIndex={menuOpen ? 0 : -1}
+            role="button"
+          >
+            {alternateLocale === "id" ? "Bahasa Indonesia" : "English"}
+          </Link>
         </aside>
       </div>
     </>

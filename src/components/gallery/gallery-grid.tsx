@@ -5,8 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import type { GalleryItem } from "@/data/gallery";
 import { CalendarIcon, CloseIcon, MapPinIcon } from "@/components/ui/icons";
 import { Tag } from "@/components/ui/tag";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function GalleryGrid({ items }: { items: GalleryItem[] }) {
+export function GalleryGrid({ items, locale }: { items: GalleryItem[]; locale: Locale }) {
+  const text = getCopy(locale);
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -108,7 +110,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
               <div className="flex items-center justify-between gap-4">
                 <Tag>{selected.category}</Tag>
                 <button
-                  aria-label="Close gallery detail"
+                  aria-label={text.gallery.close}
                   className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-[#a8a8a8] transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8db7dc]"
                   onClick={close}
                   ref={closeButtonRef}

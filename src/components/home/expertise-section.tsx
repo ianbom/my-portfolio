@@ -1,16 +1,19 @@
-import { expertise } from "@/data/profile";
+import { getProfileContent } from "@/data/profile";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Tag } from "@/components/ui/tag";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function ExpertiseSection() {
+export function ExpertiseSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
+  const { expertise } = getProfileContent(locale);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6">
       <Reveal>
         <SectionHeading
-          eyebrow="Capabilities"
-          title="Engineering Expertise"
-          description="Practical capability across the complete application lifecycle, with deeper specialization in backend systems and AI-enhanced products."
+          eyebrow={text.home.capabilities}
+          title={text.home.expertise}
+          description={text.home.expertiseDescription}
           className="mb-14"
         />
         <div className="grid gap-5 md:grid-cols-2">

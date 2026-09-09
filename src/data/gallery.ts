@@ -11,6 +11,8 @@ export type GalleryItem = {
   description: string;
 };
 
+import type { Locale } from "@/lib/i18n";
+
 export const galleryItems: GalleryItem[] = [
   {
     id: "msib-batch-7",
@@ -73,3 +75,15 @@ export const galleryItems: GalleryItem[] = [
     description: "An annual PENS event showcasing student final projects and their applied technical work.",
   },
 ];
+
+export function getGalleryItems(locale: Locale) {
+  if (locale === "en") return galleryItems;
+  const translations = [
+    { alt: "Ian Ale Hansyah bersama peserta MSIB Batch 7", category: "Magang", title: "Program MSIB Batch 7", date: "September – Desember 2024", location: "LLDIKTI Wilayah VII, Surabaya", description: "Momen penutupan program magang bersertifikat setelah presentasi sistem verifikasi dana sertifikasi dosen yang dikembangkan selama penempatan." },
+    { alt: "Ian Ale Hansyah mempresentasikan karya pada kompetisi KMIPN E-Government", category: "Kompetisi", title: "KMIPN E-Government", date: "2025", location: "Kompetisi Nasional", description: "Meraih juara tiga pada kategori E-Government dalam Kompetisi Mahasiswa Informatika Politeknik Nasional." },
+    { alt: "Peserta upacara pembukaan MSIB Batch 7", category: "Kegiatan", title: "Pembukaan MSIB", date: "September 2024", location: "Surabaya", description: "Pembukaan program magang bersertifikat MSIB Batch 7 bersama peserta dan mentor dari berbagai institusi." },
+    { alt: "Ian Ale Hansyah pada wisuda Teknik Informatika", category: "Pencapaian", title: "Wisuda D3 Teknik Informatika", date: "2024", location: "PENS, Surabaya", description: "Momen kelulusan program D3 Teknik Informatika di Politeknik Elektronika Negeri Surabaya." },
+    { alt: "Ian Ale Hansyah mengikuti kompetisi proyek akhir di PENS", category: "Kegiatan", title: "Kompetisi Proyek Akhir", date: "2024", location: "PENS, Surabaya", description: "Kegiatan tahunan PENS yang menampilkan proyek akhir mahasiswa dan karya teknologi terapan mereka." },
+  ];
+  return galleryItems.map((item, index) => ({ ...item, ...translations[index] }));
+}

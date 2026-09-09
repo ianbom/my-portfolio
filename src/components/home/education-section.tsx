@@ -2,15 +2,17 @@ import Image from "next/image";
 import { profile } from "@/data/profile";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function EducationSection() {
-  const education = profile.education;
+export function EducationSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
+  const education = locale === "en" ? profile.education : { ...profile.education, degreeEnglish: "Sarjana Terapan Teknik Informatika", period: "Juli 2022 – Juli 2026" };
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-24">
       <Reveal>
         <SectionHeading
-          eyebrow="Education"
-          title="Academic Background"
+          eyebrow={text.home.education}
+          title={text.home.academicBackground}
           className="mb-12"
         />
         <article className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#141414] p-6 sm:p-8">
@@ -37,7 +39,7 @@ export function EducationSection() {
                 {education.institution}
               </p>
               <div className="mt-6 inline-flex rounded-full border border-white/10 bg-white/[.03] px-3 py-1.5 text-sm font-medium text-[#dff2fe]">
-                GPA {education.gpa}
+                {text.home.gpa} {education.gpa}
               </div>
             </div>
           </div>

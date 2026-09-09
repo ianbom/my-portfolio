@@ -3,8 +3,11 @@ import Link from "next/link";
 import { buttonStyles } from "@/components/ui/button";
 import { ArrowRightIcon, LinkedInIcon } from "@/components/ui/icons";
 import { profile } from "@/data/profile";
+import { getCopy, localePath, type Locale } from "@/lib/i18n";
 
-export function HeroSection() {
+export function HeroSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
+  const localizedProfile = locale === "en" ? profile : { ...profile, heroDescription: text.home.heroDescription };
   return (
     <section
       className="hero-stage relative isolate min-h-svh overflow-hidden"
@@ -23,27 +26,26 @@ export function HeroSection() {
         <div className="relative grid w-full items-center gap-8 py-10 pb-0 lg:min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(430px,.95fr)] lg:gap-2 lg:py-0">
           <div className="relative z-10 max-w-3xl pt-8 text-left lg:pt-0">
             <h1 className="mt-7 max-w-3xl bg-linear-to-b from-[#f3fbff] to-white bg-clip-text text-5xl font-medium tracking-[-.065em] text-transparent sm:text-6xl lg:text-7xl xl:whitespace-nowrap xl:text-[5rem]">
-              {profile.name}
+              {localizedProfile.name}
             </h1>
             <p className="mt-6 max-w-3xl text-balance text-2xl font-medium leading-[1.15] tracking-[-.045em] text-white sm:text-3xl lg:text-4xl">
-              Full Stack Developer building scalable web applications and
-              AI-powered products.
+              {text.home.heroTitle}
             </p>
             <p className="mt-7 max-w-xl text-balance text-base leading-relaxed text-[#a8a8a8] sm:text-lg">
-              {profile.heroDescription}
+              {localizedProfile.heroDescription}
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link
                 className={buttonStyles("primary", "h-14 px-7")}
-                href="/projects"
+                href={localePath(locale, "/projects")}
               >
-                View Projects <ArrowRightIcon className="size-5" />
+                {text.home.viewProjects} <ArrowRightIcon className="size-5" />
               </Link>
               <Link
                 className={buttonStyles("outline", "h-14 px-7")}
-                href="/contact"
+                href={localePath(locale, "/contact")}
               >
-                Contact Me
+                {text.home.contactMe}
               </Link>
               <a
                 aria-label="LinkedIn profile"

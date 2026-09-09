@@ -1,4 +1,5 @@
 import { projects as sourceProjects, type ProjectAdditionalSections } from "../lib/projects";
+import type { Locale } from "@/lib/i18n";
 import type { PortfolioProject, ProjectCategory, ProjectSection } from "@/types/portfolio";
 
 const categories: Record<string, ProjectCategory[]> = {
@@ -36,48 +37,64 @@ function extension(path: string) {
   return path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".jpeg") ? "jpg" : "png";
 }
 
-function cleanSection(section?: { title: string; description?: string; items?: string[] }): ProjectSection | undefined {
-  const description = section?.description && !section.description.toLowerCase().includes("not specified") ? section.description : undefined;
-  const items = section?.items?.filter(item => item && !item.toLowerCase().includes("not specified"));
-  return section && (description || items?.length) ? { title: section.title, description, items } : undefined;
+function cleanSection(section: { title: string; titleId?: string; description?: string; descriptionId?: string; items?: string[]; itemsId?: string[] } | undefined, locale: Locale): ProjectSection | undefined {
+  const title = locale === "id" ? section?.titleId ?? section?.title : section?.title;
+  const descriptionValue = locale === "id" ? section?.descriptionId ?? section?.description : section?.description;
+  const itemsValue = locale === "id" ? section?.itemsId ?? section?.items : section?.items;
+  const description = descriptionValue && !descriptionValue.toLowerCase().includes("not specified") ? descriptionValue : undefined;
+  const items = itemsValue?.filter(item => item && !item.toLowerCase().includes("not specified"));
+  return section && (description || items?.length) ? { title: title ?? "", description, items } : undefined;
 }
 
-function capabilitySections(sections?: ProjectAdditionalSections) {
+function capabilitySections(sections: ProjectAdditionalSections | undefined, locale: Locale) {
   if (!sections) return [];
   return Object.entries(sections)
     .filter(([key]) => !["problem", "goals", "impact", "technologyStack", "systemArchitecture"].includes(key))
-    .map(([, value]) => cleanSection(value))
+    .map(([, value]) => cleanSection(value, locale))
     .filter((section): section is ProjectSection => Boolean(section));
 }
 
-export const projects: PortfolioProject[] = sourceProjects.map(project => {
+function mapProject(project: (typeof sourceProjects)[number], locale: Locale): PortfolioProject {
   const coverExtension = extension(project.thumbnail);
+  const title = locale === "id" ? project.titleId ?? project.title : project.title;
+  const shortDescription = locale === "id" ? project.descriptionId ?? project.description : project.description;
+  const overview = locale === "id" ? project.fullDescriptionId ?? project.fullDescription : project.fullDescription;
   return {
     slug: project.slug,
-    title: project.title.trim(),
-    shortDescription: project.description,
-    overview: project.fullDescription,
+    title: title.trim(),
+    shortDescription,
+    overview,
     categories: categories[project.slug] ?? ["Full Stack"],
     featured: Boolean(priorities[project.slug]),
     priority: priorities[project.slug] ?? 99,
     technologies: [...new Set(project.technologies)].slice(0, 12),
     thumbnail: `/projects/${project.slug}/cover.${coverExtension}`,
-    images: project.images.map((image, index) => ({ ...image, url: `/projects/${project.slug}/image-${String(index + 1).padStart(2, "0")}.${extension(image.url)}` })),
-    problem: cleanSection(project.additionalSections?.problem),
-    goals: cleanSection(project.additionalSections?.goals),
-    features: project.features.length ? { title: "Key Features", items: project.features } : undefined,
-    impact: cleanSection(project.additionalSections?.impact),
-    architecture: cleanSection(project.additionalSections?.systemArchitecture),
-    capabilityAreas: capabilitySections(project.additionalSections),
+    images: project.images.map((image, index) => ({ ...image, alt: locale === "id" ? `Tampilan antarmuka ${title}` : image.alt, url: `/projects/${project.slug}/image-${String(index + 1).padStart(2, "0")}.${extension(image.url)}` })),
+    problem: cleanSection(project.additionalSections?.problem, locale),
+    goals: cleanSection(project.additionalSections?.goals, locale),
+    features: project.features.length ? { title: locale === "id" ? "Fitur Utama" : "Key Features", items: locale === "id" ? project.featuresId ?? project.features : project.features } : undefined,
+    impact: cleanSection(project.additionalSections?.impact, locale),
+    architecture: cleanSection(project.additionalSections?.systemArchitecture, locale),
+    capabilityAreas: capabilitySections(project.additionalSections, locale),
     liveUrl: validUrl(project.demoUrl),
     githubUrl: validUrl(project.githubUrl),
     videoUrl: validUrl(project.videoUrl),
   };
-});
+}
+
+export function getProjects(locale: Locale) {
+  return sourceProjects.map((project) => mapProject(project, locale));
+}
+
+export const projects: PortfolioProject[] = getProjects("en");
 
 export const featuredProjects = projects.filter(project => project.featured).sort((a, b) => a.priority - b.priority);
 export const projectCategories = [...new Set(projects.flatMap(project => project.categories))];
 
-export function getProjectBySlug(slug: string) {
-  return projects.find(project => project.slug === slug);
+export function getFeaturedProjects(locale: Locale) {
+  return getProjects(locale).filter(project => project.featured).sort((a, b) => a.priority - b.priority);
+}
+
+export function getProjectBySlug(slug: string, locale: Locale = "en") {
+  return getProjects(locale).find(project => project.slug === slug);
 }

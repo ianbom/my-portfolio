@@ -1,16 +1,19 @@
-import { certifications } from "@/data/certifications";
+import { getCertifications } from "@/data/certifications";
 import { ExternalLinkIcon } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function CertificationsSection() {
+export function CertificationsSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
+  const certifications = getCertifications(locale);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6">
       <Reveal>
         <SectionHeading
-          eyebrow="Learning"
-          title="Certifications"
-          description="Professional learning across AI, cloud, backend development, project delivery, and English proficiency."
+          eyebrow={locale === "id" ? "Pembelajaran" : "Learning"}
+          title={text.home.certifications}
+          description={text.home.certificationsDescription}
           className="mb-14"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -25,7 +28,7 @@ export function CertificationsSection() {
                 </span>
                 {certification.score && (
                   <span className="text-sm font-semibold text-[#dff2fe]">
-                    Score {certification.score}
+                    {locale === "id" ? "Skor" : "Score"} {certification.score}
                   </span>
                 )}
               </div>
@@ -43,13 +46,13 @@ export function CertificationsSection() {
               <div className="mt-auto flex items-center justify-between gap-4 pt-7">
                 <p className="text-xs text-[#777]">{certification.date}</p>
                 <a
-                  aria-label={`Open ${certification.title} certificate PDF`}
+                  aria-label={`${locale === "id" ? "Buka sertifikat" : "Open"} ${certification.title} PDF`}
                   className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-[#8db7dc]"
                   href={encodeURI(`/certificate/${certification.pdfFile}`)}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Open Certificate <ExternalLinkIcon className="size-4" />
+                  {locale === "id" ? "Buka Sertifikat" : "Open Certificate"} <ExternalLinkIcon className="size-4" />
                 </a>
               </div>
             </article>

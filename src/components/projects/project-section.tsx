@@ -1,5 +1,6 @@
 import { Tag } from "@/components/ui/tag";
 import type { ProjectSection as ProjectSectionData } from "@/types/portfolio";
+import { getCopy, type Locale } from "@/lib/i18n";
 
 export function ProjectSection({ section }: { section: ProjectSectionData }) {
   return (
@@ -24,12 +25,15 @@ export function ProjectSection({ section }: { section: ProjectSectionData }) {
 
 export function TechnologySection({
   technologies,
+  locale,
 }: {
   technologies: string[];
+  locale: Locale;
 }) {
+  const text = getCopy(locale);
   return (
     <section className="grid gap-5 border-t border-white/10 py-10 md:grid-cols-[220px_1fr] md:py-14">
-      <h2 className="text-xl font-semibold tracking-tight">Technology Stack</h2>
+      <h2 className="text-xl font-semibold tracking-tight">{text.projects.technologyStack}</h2>
       <div className="flex max-w-3xl flex-wrap gap-2">
         {technologies.map((technology) => (
           <Tag className="px-3 py-1.5" key={technology}>

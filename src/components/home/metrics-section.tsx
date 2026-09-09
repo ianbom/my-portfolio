@@ -1,7 +1,9 @@
-import { metrics } from "@/data/profile";
 import { Reveal } from "@/components/ui/reveal";
+import { getProfileContent } from "@/data/profile";
+import { type Locale } from "@/lib/i18n";
 
-export function MetricsSection() {
+export function MetricsSection({ locale }: { locale: Locale }) {
+  const { metrics } = getProfileContent(locale);
   return (
     <section className="px-4 py-20">
       <Reveal className="mx-auto max-w-6xl">

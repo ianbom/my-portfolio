@@ -2,8 +2,10 @@ import { skillGroups } from "@/data/profile";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TechnologyLogo } from "@/components/ui/technology-logo";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function TechStackSection() {
+export function TechStackSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
   const technologies = [
     ...new Set(skillGroups.flatMap((group) => group.skills)),
   ];
@@ -11,8 +13,8 @@ export function TechStackSection() {
     <section className="mx-auto w-full max-w-6xl px-4 py-24">
       <Reveal>
         <SectionHeading
-          eyebrow="Technology"
-          title="Core Stack"
+          eyebrow={text.home.technology}
+          title={text.home.coreStack}
           className="mb-12"
         />
         <div

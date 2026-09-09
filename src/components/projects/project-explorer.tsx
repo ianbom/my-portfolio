@@ -6,14 +6,18 @@ import { Button } from "@/components/ui/button";
 import { SearchIcon } from "@/components/ui/icons";
 import { projectCategories } from "@/data/projects";
 import type { PortfolioProject, ProjectCategory } from "@/types/portfolio";
+import { categoryLabel, getCopy, type Locale } from "@/lib/i18n";
 
 type SortOption = "featured" | "name";
 
 export function ProjectExplorer({
   projects,
+  locale,
 }: {
   projects: PortfolioProject[];
+  locale: Locale;
 }) {
+  const text = getCopy(locale);
   const [input, setInput] = useState("");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | ProjectCategory>("All");
@@ -69,30 +73,30 @@ export function ProjectExplorer({
       <div className="rounded-2xl border border-white/10 bg-[#141414] p-4 sm:p-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <label className="relative block lg:max-w-md lg:flex-1">
-            <span className="sr-only">Search projects</span>
+            <span className="sr-only">{text.projects.searchLabel}</span>
             <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#777]" />
             <input
               className="h-11 w-full rounded-lg border border-white/10 bg-[#0b0b0b] pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-[#666] focus:border-white/25"
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder="Search projects, technologies, or categories"
+              placeholder={text.projects.searchPlaceholder}
             />
           </label>
           <label className="flex items-center gap-3 text-sm text-[#a8a8a8]">
-            Sort
+            {text.projects.sort}
             <select
-              aria-label="Sort projects"
+              aria-label={text.projects.sort}
               className="h-11 rounded-lg border border-white/10 bg-[#0b0b0b] px-3 text-sm text-white outline-none focus:border-white/25"
               value={sort}
               onChange={(event) => setSort(event.target.value as SortOption)}
             >
-              <option value="featured">Featured</option>
-              <option value="name">Name A–Z</option>
+              <option value="featured">{text.projects.featured}</option>
+              <option value="name">{text.projects.name}</option>
             </select>
           </label>
         </div>
         <div
-          aria-label="Project categories"
+          aria-label={locale === "id" ? "Kategori proyek" : "Project categories"}
           className="mt-4 flex gap-2 overflow-x-auto pb-1"
         >
           {(["All", ...projectCategories] as const).map((item) => (
@@ -102,7 +106,7 @@ export function ProjectExplorer({
               onClick={() => setCategory(item)}
               type="button"
             >
-              {item}
+              {item === "All" ? text.projects.all : categoryLabel(locale, item)}
             </button>
           ))}
         </div>
@@ -112,7 +116,7 @@ export function ProjectExplorer({
           <span className="font-medium text-white">
             {visibleProjects.length}
           </span>{" "}
-          {visibleProjects.length === 1 ? "project" : "projects"}
+          {visibleProjects.length === 1 ? text.projects.project : text.projects.projects}
         </p>
         {(input || category !== "All" || sort !== "featured") && (
           <button
@@ -120,24 +124,24 @@ export function ProjectExplorer({
             onClick={reset}
             type="button"
           >
-            Reset filters
+            {text.projects.reset}
           </button>
         )}
       </div>
       {visibleProjects.length ? (
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           {visibleProjects.map((project) => (
-            <ProjectCard project={project} key={project.slug} />
+            <ProjectCard project={project} locale={locale} key={project.slug} />
           ))}
         </div>
       ) : (
         <div className="mt-5 flex min-h-72 flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-[#101010] px-6 text-center">
-          <h2 className="text-xl font-semibold">No projects found</h2>
+          <h2 className="text-xl font-semibold">{text.projects.none}</h2>
           <p className="mt-2 text-sm text-[#a8a8a8]">
-            Try another keyword or reset your filters.
+            {text.projects.tryAgain}
           </p>
           <Button className="mt-6" variant="outline" onClick={reset}>
-            Reset Filters
+            {text.projects.reset}
           </Button>
         </div>
       )}

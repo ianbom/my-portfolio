@@ -1,4 +1,5 @@
 import type { Certification } from "@/types/portfolio";
+import type { Locale } from "@/lib/i18n";
 
 export const certifications: Certification[] = [
   { title: "Project Management Fundamentals", issuer: "Dicoding Indonesia", date: "July 28, 2026", description: "Completed Dicoding's foundational project management course.", pdfFile: "Dasar Manajemen Proyek, Dicoding.pdf" },
@@ -17,3 +18,12 @@ export const certifications: Certification[] = [
   { title: "Laravel 9 Website Development", issuer: "Coding Studio", date: "December 14, 2025", description: "Completed Coding Studio's online course on building websites with Laravel 9.", pdfFile: "Sertif Cstudio.pdf" },
   { title: "Professional Application Database Development", issuer: "Coding Studio", date: "December 14, 2025", description: "Completed Coding Studio's online course on building professional application databases.", pdfFile: "Sertif db costudio.pdf" },
 ];
+
+export function getCertifications(locale: Locale) {
+  if (locale === "en") return certifications;
+  return certifications.map((certification) => ({
+    ...certification,
+    date: certification.date.replace("July", "Juli").replace("June", "Juni").replace("May", "Mei").replace("April", "April").replace("March", "Maret").replace("December", "Desember"),
+    description: `Telah menyelesaikan program ${certification.title} yang diselenggarakan oleh ${certification.issuer}.`,
+  }));
+}

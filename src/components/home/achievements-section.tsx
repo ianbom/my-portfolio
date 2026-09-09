@@ -1,16 +1,19 @@
-import { achievements } from "@/data/profile";
+import { getProfileContent } from "@/data/profile";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ExternalLinkIcon } from "@/components/ui/icons";
+import { getCopy, type Locale } from "@/lib/i18n";
 
-export function AchievementsSection() {
+export function AchievementsSection({ locale }: { locale: Locale }) {
+  const text = getCopy(locale);
+  const { achievements } = getProfileContent(locale);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6">
       <Reveal>
         <SectionHeading
-          eyebrow="Recognition"
-          title="National Competition Achievements"
-          description="Four national web-development placements earned across 2025 and 2026."
+          eyebrow={text.home.recognition}
+          title={text.home.achievements}
+          description={text.home.achievementsDescription}
           className="mb-14"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -31,13 +34,13 @@ export function AchievementsSection() {
                   <p className="mt-1">{achievement.year}</p>
                 </div>
                 <a
-                  aria-label={`Open ${achievement.competition} certificate PDF`}
+                  aria-label={text.home.openCertificate(achievement.competition)}
                   className="inline-flex items-center gap-2 text-right text-sm font-medium transition-colors hover:text-[#8db7dc]"
                   href={achievement.certificateFile}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  View Certificate <ExternalLinkIcon className="size-4" />
+                  {locale === "id" ? "Buka Sertifikat" : "View Certificate"} <ExternalLinkIcon className="size-4" />
                 </a>
               </div>
             </article>
