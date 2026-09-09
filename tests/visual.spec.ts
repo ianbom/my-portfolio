@@ -50,18 +50,39 @@ test("hero fills viewport and navbar changes after hero", async ({ page }) => {
 test("project search filters and resets", async ({ page }) => {
   await page.goto("/projects");
   await expect(page.getByText("15 projects")).toBeVisible();
+  const projectThumbnails = page.locator("img[alt$=' interface']");
+  await expect(projectThumbnails).toHaveCount(15);
+  await expect(projectThumbnails.first()).toHaveClass(/object-contain/);
+  expect(await projectThumbnails.first().getAttribute("src")).toContain("q=90");
   await page.getByPlaceholder("Search projects, technologies, or categories").fill("SyntraFix");
   await expect(page.getByText("1 project")).toBeVisible();
   await page.getByRole("button", { name: "Reset filters" }).click();
   await expect(page.getByText("15 projects")).toBeVisible();
 });
 
+test("featured project thumbnails preserve full screenshots", async ({ page }) => {
+  await page.goto("/");
+  const featuredThumbnails = page.locator("img[alt$=' interface']");
+  await expect(featuredThumbnails).toHaveCount(6);
+  await expect(featuredThumbnails.first()).toHaveClass(/object-contain/);
+  expect(await featuredThumbnails.first().getAttribute("src")).toContain("q=90");
+});
+
 test("project detail renders case study content", async ({ page }) => {
-  await page.goto("/projects/syntra-ai");
-  await expect(page.locator("h1")).toContainText("SyntraFix");
+  await page.goto("/projects/sobat-bumi");
+  await expect(page.locator("h1")).toContainText("Sobat Bumi");
+  await expect(page.getByTestId("project-carousel")).toBeVisible();
+  await expect(page.getByTestId("carousel-slide-count")).toHaveText("1 / 8");
+  await expect(page.getByRole("button", { name: /Show image 1:/ })).toBeVisible();
+  const activeImage = page.getByTestId("project-carousel").locator("img").first();
+  await expect(activeImage).toHaveClass(/object-contain/);
+  expect(await activeImage.getAttribute("src")).toContain("q=90");
+  await expect(page.getByRole("button", { name: "Show previous project image" })).toBeDisabled();
+  await page.getByRole("button", { name: "Show next project image" }).click();
+  await expect(page.getByTestId("carousel-slide-count")).toHaveText("2 / 8");
+  await expect(page.getByRole("heading", { name: "Project Gallery" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Overview" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Technology Stack" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Project Gallery" })).toBeVisible();
 });
 
 test("contact page exposes verified methods", async ({ page }) => {
