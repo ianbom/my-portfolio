@@ -92,7 +92,7 @@ export function Header({ locale }: { locale: Locale }) {
               </div>
               <Link
                 aria-label={alternateLocale === "id" ? text.language.switchToId : text.language.switchToEn}
-                className="ml-2 hidden rounded-md border border-white/20 px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-white/10 sm:inline-flex"
+                className="ml-2 hidden h-9 items-center justify-center rounded-md border border-white/20 px-2.5 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-white/10 sm:inline-flex"
                 href={alternatePath}
                 role="button"
               >
@@ -131,7 +131,7 @@ export function Header({ locale }: { locale: Locale }) {
           aria-hidden={!menuOpen}
           aria-label="Mobile navigation"
           aria-modal="true"
-          className={`absolute inset-y-0 right-0 flex w-[min(90vw,36rem)] flex-col bg-[#11140f] px-7 py-9 shadow-2xl shadow-black/50 transition-transform duration-500 ease-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+          className={`absolute inset-y-0 right-0 flex w-[min(90vw,36rem)] flex-col bg-[#070707] px-7 py-9 shadow-2xl shadow-black/50 transition-transform duration-500 ease-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
           id="mobile-navigation-drawer"
           role="dialog"
         >
