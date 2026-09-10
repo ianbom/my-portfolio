@@ -31,7 +31,7 @@ export const copy = {
     },
     metrics: { years: "Years Experience", projects: "Projects", placements: "National Placements", degree: "Informatics Engineering" },
     projects: {
-      archive: "Project Archive", archiveTitle: "Engineering work across web, backend, and AI", archiveDescription: "Explore 15 application implementations shaped around operational workflows, domain requirements, integrations, and maintainable delivery.",
+      archive: "Project Archive", archiveTitle: "Engineering work across web, backend, and AI", archiveDescription: "Explore all application implementations shaped around operational workflows, domain requirements, integrations, and maintainable delivery.",
       searchLabel: "Search projects", searchPlaceholder: "Search projects, technologies, or categories", sort: "Sort", featured: "Featured", name: "Name A–Z", all: "All", project: "project", projects: "projects", reset: "Reset filters", none: "No projects found", tryAgain: "Try another keyword or reset your filters.", view: "View Project", interface: (title: string) => `${title} interface`, liveDemo: (title: string) => `Open ${title} live demo`,
       previous: "Previous Project", next: "Next Project", breadcrumb: "Projects", overview: "Overview", technologyStack: "Technology Stack", sourceCode: "Source Code", liveDemoButton: "Live Demo", previewVideo: "Preview Video", imageGallery: (title: string) => `${title} image gallery`, previousImage: "Show previous project image", nextImage: "Show next project image", thumbnails: "Project image thumbnails", image: (number: number, alt: string) => `Show image ${number}: ${alt}`,
     },
@@ -43,7 +43,7 @@ export const copy = {
     language: { switchToId: "Ganti bahasa ke Indonesia", switchToEn: "Ganti bahasa ke Inggris", english: "Inggris", indonesian: "Indonesia" },
     nav: { home: "Beranda", projects: "Proyek", gallery: "Galeri", contact: "Kontak", talk: "Mari Berbicara", close: "Tutup menu", closeBackdrop: "Tutup latar navigasi", open: "Buka menu", explore: "JELAJAHI KARYA SAYA" },
     home: {
-      heroTitle: "Pengembang Full Stack yang membangun aplikasi web berskala besar dan produk berbasis AI.",
+      heroTitle: "Full Stack Developer yang membangun aplikasi web berskala besar dan produk berbasis AI.",
       heroDescription: "Software Engineer yang berfokus membangun produk digital yang andal dan mudah dikembangkan, dari ide hingga siap digunakan.",
       viewProjects: "Lihat Proyek", contactMe: "Hubungi Saya", selectedWork: "Karya Pilihan", featuredProjects: "Proyek Unggulan",
       featuredDescription: "Pilihan sistem full-stack, backend, dan AI yang dibangun untuk alur kerja nyata, integrasi, serta kebutuhan operasional.",
@@ -59,7 +59,7 @@ export const copy = {
     },
     metrics: { years: "Pengalaman", projects: "Proyek", placements: "Prestasi Nasional", degree: "Teknik Informatika" },
     projects: {
-      archive: "Arsip Proyek", archiveTitle: "Karya rekayasa perangkat lunak untuk web, backend, dan AI", archiveDescription: "Jelajahi 15 implementasi aplikasi yang dibangun berdasarkan alur operasional, kebutuhan domain, integrasi, dan pemeliharaan jangka panjang.",
+      archive: "Arsip Proyek", archiveTitle: "Karya rekayasa perangkat lunak untuk web, backend, dan AI", archiveDescription: "Jelajahi semua implementasi aplikasi yang dibangun berdasarkan alur operasional, kebutuhan domain, integrasi, dan pemeliharaan jangka panjang.",
       searchLabel: "Cari proyek", searchPlaceholder: "Cari proyek, teknologi, atau kategori", sort: "Urutkan", featured: "Unggulan", name: "Nama A–Z", all: "Semua", project: "proyek", projects: "proyek", reset: "Reset filter", none: "Proyek tidak ditemukan", tryAgain: "Coba kata kunci lain atau reset filter.", view: "Lihat Proyek", interface: (title: string) => `Antarmuka ${title}`, liveDemo: (title: string) => `Buka demo langsung ${title}`,
       previous: "Proyek Sebelumnya", next: "Proyek Berikutnya", breadcrumb: "Proyek", overview: "Ringkasan", technologyStack: "Teknologi yang Digunakan", sourceCode: "Kode Sumber", liveDemoButton: "Demo Langsung", previewVideo: "Video Pratinjau", imageGallery: (title: string) => `Galeri gambar ${title}`, previousImage: "Tampilkan gambar proyek sebelumnya", nextImage: "Tampilkan gambar proyek berikutnya", thumbnails: "Miniatur gambar proyek", image: (number: number, alt: string) => `Tampilkan gambar ${number}: ${alt}`,
     },

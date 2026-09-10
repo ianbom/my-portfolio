@@ -99,7 +99,7 @@ export function getProfileContent(locale: Locale) {
       { value: "D4", label: "Teknik Informatika" },
     ],
     expertise: [
-      { ...expertise[0], title: "Pengembangan Full Stack", description: "Pengembangan aplikasi dari awal hingga siap digunakan, mencakup kebutuhan, alur sistem, struktur basis data, API, frontend, pengujian, deployment, dan pemeliharaan." },
+      { ...expertise[0], title: "Full Stack Developer", description: "Pengembangan aplikasi dari awal hingga siap digunakan, mencakup kebutuhan, alur sistem, struktur basis data, API, frontend, pengujian, deployment, dan pemeliharaan." },
       { ...expertise[1], title: "Rekayasa Backend", description: "API REST, autentikasi, validasi, pemodelan data relasional, integrasi, background job, pengujian, dan logika aplikasi yang mudah dipelihara." },
       { ...expertise[2], title: "Rekayasa AI", description: "Ingesti dokumen, chunking, embedding, pencarian vektor, retrieval, reranking, integrasi LLM, serta evaluasi alur kerja RAG." },
       { ...expertise[3], title: "Infrastruktur dan Delivery", description: "Deployment aplikasi, konfigurasi server, layanan terkontainerisasi, object storage, pemeliharaan, dan penanganan masalah produksi." },

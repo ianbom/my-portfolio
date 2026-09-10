@@ -18,6 +18,14 @@ const categories: Record<string, ProjectCategory[]> = {
   "online-course": ["Full Stack", "Education"],
   "syntra-ai": ["AI", "Backend", "Full Stack"],
   shayda: ["Full Stack", "E-Commerce"],
+  axegear: ["Full Stack", "E-Commerce"],
+  "impact-management": ["Full Stack", "Civic Tech"],
+  "ini-vie": ["Full Stack"],
+  "cms-ini-vie": ["Full Stack", "AI"],
+  godkillergoods: ["Full Stack", "E-Commerce"],
+  "dashboard-pln-awards": ["Full Stack"],
+  manajemensid: ["Full Stack"],
+  desabakti: ["Full Stack", "Civic Tech"],
 };
 
 const priorities: Record<string, number> = {
